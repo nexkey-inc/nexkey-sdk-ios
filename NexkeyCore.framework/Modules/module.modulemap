@@ -1,0 +1,11 @@
+framework module NexkeyCore {
+  umbrella header "NexkeyCore.h"
+
+  export *
+  module * { export * }
+}
+
+module NexkeyCore.Swift {
+    header "NexkeyCore-Swift.h"
+    requires objc
+}
