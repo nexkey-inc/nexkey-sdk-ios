@@ -191,6 +191,31 @@ SWIFT_CLASS("_TtC10NexkeyCore16FoundationStream")
 @end
 
 
+SWIFT_PROTOCOL("_TtP10NexkeyCore18NexkeyCoreDelegate_")
+@protocol NexkeyCoreDelegate
+- (void)didConnect;
+- (void)didDisconnectWithError:(NSError * _Nullable)error;
+@end
+
+
+SWIFT_CLASS("_TtC10NexkeyCore14NexkeyCoreObjC")
+@interface NexkeyCoreObjC : NSObject
+@property (nonatomic, weak) id <NexkeyCoreDelegate> _Nullable delegate;
+- (nonnull instancetype)initWithApiKey:(NSString * _Nonnull)apiKey apiSecretKey:(NSString * _Nonnull)apiSecretKey OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithApiKey:(NSString * _Nonnull)apiKey sessionToken:(NSString * _Nonnull)sessionToken OBJC_DESIGNATED_INITIALIZER;
+- (void)signInIdentifier:(NSString * _Nonnull)identifier password:(NSString * _Nonnull)password error:(void (^ _Nonnull)(NSError * _Nonnull))error completion:(void (^ _Nonnull)(NSDictionary<NSString *, id> * _Nonnull))completion;
+- (void)getAllUserKeysWithError:(void (^ _Nonnull)(NSError * _Nonnull))error completion:(void (^ _Nonnull)(NSArray<NSDictionary<NSString *, id> *> * _Nonnull))completion;
+- (void)getAllLocksWithLockId:(NSString * _Nonnull)lockId error:(void (^ _Nonnull)(NSError * _Nonnull))error completion:(void (^ _Nonnull)(NSArray<NSDictionary<NSString *, id> *> * _Nonnull))completion;
+- (void)sendKeyWithEmailsWithLockIds:(NSArray<NSString *> * _Nonnull)lockIds emails:(NSArray<NSString *> * _Nonnull)emails error:(void (^ _Nonnull)(NSError * _Nonnull))error completion:(void (^ _Nonnull)(NSArray<NSDictionary<NSString *, id> *> * _Nonnull))completion;
+- (void)sendKeyWithPhoneNumbersWithLockIds:(NSArray<NSString *> * _Nonnull)lockIds phones:(NSArray<NSString *> * _Nonnull)phones error:(void (^ _Nonnull)(NSError * _Nonnull))error completion:(void (^ _Nonnull)(NSArray<NSDictionary<NSString *, id> *> * _Nonnull))completion;
+- (void)revokeKeyWithPhoneNumberWithLockId:(NSString * _Nonnull)lockId phone:(NSString * _Nonnull)phone error:(void (^ _Nonnull)(NSError * _Nonnull))error completion:(void (^ _Nonnull)(NSArray<NSString *> * _Nonnull))completion;
+- (void)revokeKeyWithEmailWithLockId:(NSString * _Nonnull)lockId email:(NSString * _Nonnull)email error:(void (^ _Nonnull)(NSError * _Nonnull))error completion:(void (^ _Nonnull)(NSArray<NSString *> * _Nonnull))completion;
+- (void)remoteUnlockWithLockId:(NSString * _Nonnull)lockId update:(void (^ _Nonnull)(NSInteger))update error:(void (^ _Nonnull)(NSError * _Nonnull))error completion:(void (^ _Nonnull)(NSDictionary<NSString *, id> * _Nonnull))completion;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_DEPRECATED_MSG("-init is unavailable");
+@end
+
+
 
 
 SWIFT_CLASS("_TtC10NexkeyCore9WebSocket")
