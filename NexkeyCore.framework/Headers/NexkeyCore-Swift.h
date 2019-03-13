@@ -182,6 +182,11 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 # pragma pop_macro("any")
 #endif
 
+typedef SWIFT_ENUM(NSInteger, Enviroment, closed) {
+  EnviromentProduction = 0,
+  EnviromentStaging = 1,
+};
+
 @class NSStream;
 
 SWIFT_CLASS("_TtC10NexkeyCore16FoundationStream")
@@ -189,6 +194,70 @@ SWIFT_CLASS("_TtC10NexkeyCore16FoundationStream")
 - (void)stream:(NSStream * _Nonnull)aStream handleEvent:(NSStreamEvent)eventCode;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
+
+typedef SWIFT_ENUM(NSInteger, HubStatus, closed) {
+/// /////////////////////////////
+  HubStatusIDLE = 0,
+  HubStatusINITIATED = 10,
+  HubStatusRECEIVED = 20,
+  HubStatusAUTHD_BY_SERVER = 30,
+  HubStatusLOCK_FOUND = 40,
+  HubStatusCONNECTED = 50,
+  HubStatusAUTHD_BY_LOCK = 60,
+  HubStatusUNLOCKED = 70,
+  HubStatusUNLOCKED_ALREADY = 71,
+  HubStatusRELOCKED = 80,
+  HubStatusRETURNED_TO_IDLE = 90,
+  HubStatusERROR_INITIATING_CLT = 100,
+  HubStatusERROR_INITIATING_SRV = 101,
+  HubStatusERROR_RECEIVING_TIMEOUT_SRV = 200,
+  HubStatusERROR_RECEIVING_TIMEOUT_CLT = 201,
+  HubStatusERROR_AUTHING_WITH_SERVER_TIMEOUT_HUB = 300,
+  HubStatusERROR_AUTHING_WITH_SERVER_TIMEOUT_SRV = 301,
+  HubStatusERROR_AUTHING_WITH_SERVER_TIMEOUT_CLT = 302,
+  HubStatusERROR_SEARCHING_TIMEOUT_HUB = 400,
+  HubStatusERROR_SEARCHING_TIMEOUT_SRV = 401,
+  HubStatusERROR_SEARCHING_TIMEOUT_CLT = 402,
+  HubStatusERROR_CONNECTING_TIMEOUT_HUB = 500,
+  HubStatusERROR_CONNECTING_TIMEOUT_SRV = 501,
+  HubStatusERROR_CONNECTING_TIMEOUT_CLT = 502,
+  HubStatusERROR_AUTHING_WITH_LOCK_TIMEOUT_HUB = 600,
+  HubStatusERROR_AUTHING_WITH_LOCK_TIMEOUT_SRV = 601,
+  HubStatusERROR_AUTHING_WITH_LOCK_TIMEOUT_CLT = 602,
+  HubStatusERROR_UNLOCKING_TIMEOUT_HUB = 700,
+  HubStatusERROR_UNLOCKING_TIMEOUT_SRV = 701,
+  HubStatusERROR_UNLOCKING_TIMEOUT_CLT = 702,
+  HubStatusERROR_RELOCKING_TIMEOUT_HUB = 800,
+  HubStatusERROR_RELOCKING_TIMEOUT_SRV = 801,
+  HubStatusERROR_RELOCKING_TIMEOUT_CLT = 802,
+  HubStatusERROR_RETURNING_TO_IDLE_TIMEOUT_HUB = 900,
+  HubStatusERROR_RETURNING_TO_IDLE_TIMEOUT_SRV = 901,
+  HubStatusERROR_RETURNING_TO_IDLE_TIMEOUT_CLT = 902,
+/// ///////////////////////////
+  HubStatusREMOTELOCK_INITIATED = 11,
+  HubStatusREMOTELOCK_RECEIVED = 21,
+  HubStatusREMOTELOCK_AUTHD_BY_SERVER = 31,
+  HubStatusREMOTELOCK_LOCK_FOUND = 41,
+  HubStatusREMOTELOCK_CONNECTED = 51,
+  HubStatusREMOTELOCK_AUTHD_BY_LOCK = 61,
+  HubStatusREMOTELOCK_LOCKED = 81,
+  HubStatusREMOTELOCK_LOCKED_ALREADY = 82,
+  HubStatusREMOTELOCK_RETURNED_TO_IDLE = 91,
+  HubStatusERROR_REMOTELOCK_INITIATING_SRV = 111,
+  HubStatusERROR_REMOTELOCK_RECEIVING_TIMEOUT_SRV = 210,
+  HubStatusERROR_REMOTELOCK_AUTHING_WITH_SERVER_TIMEOUT_HUB = 310,
+  HubStatusERROR_REMOTELOCK_AUTHING_WITH_SERVER_TIMEOUT_SRV = 311,
+  HubStatusERROR_REMOTELOCK_SEARCHING_TIMEOUT_HUB = 410,
+  HubStatusERROR_REMOTELOCK_SEARCHING_TIMEOUT_SRV = 411,
+  HubStatusERROR_REMOTELOCK_CONNECTING_TIMEOUT_HUB = 510,
+  HubStatusERROR_REMOTELOCK_CONNECTING_TIMEOUT_SRV = 511,
+  HubStatusERROR_REMOTELOCK_AUTHING_WITH_LOCK_TIMEOUT_HUB = 610,
+  HubStatusERROR_REMOTELOCK_AUTHING_WITH_LOCK_TIMEOUT_SRV = 611,
+  HubStatusERROR_REMOTELOCK_LOCKING_TIMEOUT_HUB = 810,
+  HubStatusERROR_REMOTELOCK_LOCKING_TIMEOUT_SRV = 811,
+  HubStatusERROR_REMOTELOCK_RETURNING_TO_IDLE_TIMEOUT_HUB = 910,
+  HubStatusERROR_REMOTELOCK_RETURNING_TO_IDLE_TIMEOUT_SRV = 911,
+};
 
 
 SWIFT_PROTOCOL("_TtP10NexkeyCore18NexkeyCoreDelegate_")
@@ -205,12 +274,12 @@ SWIFT_CLASS("_TtC10NexkeyCore14NexkeyCoreObjC")
 - (nonnull instancetype)initWithApiKey:(NSString * _Nonnull)apiKey sessionToken:(NSString * _Nonnull)sessionToken OBJC_DESIGNATED_INITIALIZER;
 - (void)signInIdentifier:(NSString * _Nonnull)identifier password:(NSString * _Nonnull)password error:(void (^ _Nonnull)(NSError * _Nonnull))error completion:(void (^ _Nonnull)(NSDictionary<NSString *, id> * _Nonnull))completion;
 - (void)getAllUserKeysWithError:(void (^ _Nonnull)(NSError * _Nonnull))error completion:(void (^ _Nonnull)(NSArray<NSDictionary<NSString *, id> *> * _Nonnull))completion;
-- (void)getAllLocksWithLockId:(NSString * _Nonnull)lockId error:(void (^ _Nonnull)(NSError * _Nonnull))error completion:(void (^ _Nonnull)(NSArray<NSDictionary<NSString *, id> *> * _Nonnull))completion;
+- (void)getUsersForLockId:(NSString * _Nonnull)lockId error:(void (^ _Nonnull)(NSError * _Nonnull))error completion:(void (^ _Nonnull)(NSArray<NSDictionary<NSString *, id> *> * _Nonnull))completion;
 - (void)sendKeyWithEmailsWithLockIds:(NSArray<NSString *> * _Nonnull)lockIds emails:(NSArray<NSString *> * _Nonnull)emails error:(void (^ _Nonnull)(NSError * _Nonnull))error completion:(void (^ _Nonnull)(NSArray<NSDictionary<NSString *, id> *> * _Nonnull))completion;
 - (void)sendKeyWithPhoneNumbersWithLockIds:(NSArray<NSString *> * _Nonnull)lockIds phones:(NSArray<NSString *> * _Nonnull)phones error:(void (^ _Nonnull)(NSError * _Nonnull))error completion:(void (^ _Nonnull)(NSArray<NSDictionary<NSString *, id> *> * _Nonnull))completion;
 - (void)revokeKeyWithPhoneNumberWithLockId:(NSString * _Nonnull)lockId phone:(NSString * _Nonnull)phone error:(void (^ _Nonnull)(NSError * _Nonnull))error completion:(void (^ _Nonnull)(NSArray<NSString *> * _Nonnull))completion;
 - (void)revokeKeyWithEmailWithLockId:(NSString * _Nonnull)lockId email:(NSString * _Nonnull)email error:(void (^ _Nonnull)(NSError * _Nonnull))error completion:(void (^ _Nonnull)(NSArray<NSString *> * _Nonnull))completion;
-- (void)remoteUnlockWithLockId:(NSString * _Nonnull)lockId update:(void (^ _Nonnull)(NSInteger))update error:(void (^ _Nonnull)(NSError * _Nonnull))error completion:(void (^ _Nonnull)(NSDictionary<NSString *, id> * _Nonnull))completion;
+- (void)remoteUnlockWithLockId:(NSString * _Nonnull)lockId update:(void (^ _Nonnull)(enum HubStatus))update error:(void (^ _Nonnull)(NSError * _Nonnull))error completion:(void (^ _Nonnull)(NSDictionary<NSString *, id> * _Nonnull))completion;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_DEPRECATED_MSG("-init is unavailable");
 @end
