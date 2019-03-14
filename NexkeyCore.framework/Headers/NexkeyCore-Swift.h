@@ -287,6 +287,8 @@ SWIFT_CLASS("_TtC10NexkeyCore14NexkeyCoreObjC")
 
 
 
+
+
 SWIFT_CLASS("_TtC10NexkeyCore9WebSocket")
 @interface WebSocket : NSObject <NSStreamDelegate>
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
